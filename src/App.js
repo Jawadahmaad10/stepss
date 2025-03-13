@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 const messages = [
   "Learn React ⚛️",
   "Apply for jobs 💼",
@@ -5,28 +7,58 @@ const messages = [
 ];
 
 export default function App(){
+ 
+  const [step , setStep] = useState(1);
+  const [isOpen , setIsOpen] = useState(true);
 
-  let step = 2;
+
+  // const [test] = useState({name:'Jawad'});
+  // const [test,setTest] = useState({name:'Jawad'});
+
+  
 
   function handlePrevious(){
-    
+  if(step > 1)
+  // setStep(step - 1);
+  setStep((s) => s-1); 
   }
 
   function handleNext(){
+    if(step < 3)
+      // setStep(step + 1);
+  setStep((s) => s+1); 
+  setStep((s) => s+1); 
+
+
+
+     // mutating the object
+    //BAD PRACTICE
+    // test.name = 'khan';
+
+    //Good practice
+
+    // setTest({name:'Khan'});
     
   }
 
 
-  return <div className="steps">
+  return (
+  <>
+    {/* <button className="close" onClick={()=> setIsOpen(!isOpen)}>&times;</button> */}
+    <button className="close" onClick={()=> setIsOpen((is) => !is)}>&times;</button>
+   
+   {isOpen && (
+    <div className="steps">
     <div className="numbers">
-      <div className={`${step >=1  ? 'active' :  ""}` }>1</div>
-      <div className={`${step >=1  ? 'active' :  ""}` }>2</div>
-      <div className={`${step >=1  ? 'active' :  ""}` }>3</div>
+      <div className={step >=1  ? 'active' :  "" }>1</div>
+      <div className={step >=2  ? 'active' :  "" }>2</div>
+      <div className={step >=3  ? 'active' :  "" }>3</div>
     </div>
 
 
     <p className="message">
-      {step} : {messages[step-1]} 
+      {step} : {messages[step-1]}  
+      {/* {test.name} */}
     </p>
 
     <div className="buttons">
@@ -37,5 +69,11 @@ export default function App(){
 
 
     </div>
-    </div>;
+    </div>
+   )}
+  </>
+  );
 }
+
+
+
